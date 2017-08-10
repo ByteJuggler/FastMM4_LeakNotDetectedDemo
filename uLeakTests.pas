@@ -12,7 +12,7 @@ type
   protected
     procedure TearDown; override;
   published
-    procedure ShouldFailWithALeak;
+    procedure ShouldFailWithALeakButDoesnt;
   end;
 
 implementation
@@ -24,12 +24,12 @@ uses
 
 procedure TLeakTests.TearDown;
 begin
-  //Comment out the next line, and the test works.
-  gConf.Free; // cleanup and trigger recreation by next testcase
+  //Comment out "gConf.Free;" and the test memory leak is detected.
+  gConf.Free; // cleanup to trigger recreation by the next testcase
   inherited;
 end;
 
-procedure TLeakTests.ShouldFailWithALeak;
+procedure TLeakTests.ShouldFailWithALeakButDoesnt;
 var
   stl : TStringList;
 begin

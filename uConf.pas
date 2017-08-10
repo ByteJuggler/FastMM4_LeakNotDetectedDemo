@@ -5,11 +5,10 @@ interface
 uses SysUtils, Classes;
 
 type
-   //Rename TSharedConf to TConf and the test works.
    TConf = class(TObject)
    private
-    FConfFileName : String; //remove this member and the test works.
-    FStrings : TStrings;    //remove this member and the test works.
+    FConfFileName : String; //Remove the FConfFileName member and the test memleak is detected.
+    FStrings : TStrings;    //Remove this FStrings and the test memleak is detected
    public
     constructor Create;
     destructor Destroy; override;
@@ -32,11 +31,11 @@ end;
 constructor TConf.Create;
 begin
   inherited;
-  //Remove the call to ChangeFileExt and the test works.
-  //Remove the call to ParamStr(0) and the test works
+  //Remove the call to ChangeFileExt and the test memleak is detected.
+  //Remove the call to ParamStr(0) and the test memleak is detected.
   FConfFileName := ChangeFileExt(ParamStr(0), '.ini');
 
-  //Remove this and the test works
+  //Remove the "FStrings" initialization, and the test memleak is detected.
   FStrings := TStringList.Create;
 end;
 
@@ -51,7 +50,7 @@ end;
 
 
 initialization
-  //Remove this call that initializes the global to an instance, and the test works:
+  //Remove the call to gConf that initializes FConf, and the test memleak is detected.
   gConf;
 
 finalization
