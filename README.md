@@ -1,4 +1,5 @@
 This is a DUnit test project setup with a test that leaks memory that is not detected by FastMM4, that ought to be.  Here's what will happen if you run the project as it stands:
+
 ![Dunit Testrunner succeeding when it should not](https://vgy.me/q2m4MO.png "Dunit Testrunner succeeding when it should not")
 
 I am trying to get to the bottom of why it's not being detected.
